@@ -22,7 +22,9 @@ class BookListViewModel: ViewModel() {
                 }
             }
             is BookListAction.OnTabSelected -> {
-                TODO()
+                _state.update {
+                    it.copy(selectedTabIndex = action.index)
+                }
             }
         }
     }
