@@ -46,7 +46,6 @@ fun BookListItem(
     onClick: () -> Unit,
     book: Book,
     modifier: Modifier,
-
     ) {
     Surface(
         modifier = Modifier.clickable(onClick = onClick), color = LightBlue.copy(alpha = 0.2f)
@@ -61,16 +60,21 @@ fun BookListItem(
                 var imageLoadResult by remember {
                     mutableStateOf<Result<Painter>?>(null)
                 }
-                val painter = rememberAsyncImagePainter(model = book.imageUrl, onSuccess = {
-                    if (it.painter.intrinsicSize.width > 1 && it.painter.intrinsicSize.height > 1) {
-                        Result.success(it.painter)
-                    } else {
-                        Result.failure(Exception("Invalid image size"))
-                    }
-                }, onError = {
-                    it.result.throwable.printStackTrace()
-                    imageLoadResult = Result.failure(it.result.throwable)
-                })
+                val painter = rememberAsyncImagePainter(
+                    model = book.imageUrl,
+                    onSuccess = {
+
+                        if (it.painter.intrinsicSize.width > 1 && it.painter.intrinsicSize.height > 1) {
+                            Result.success(it.painter)
+                        } else {
+                            Result.failure(Exception("Invalid image size"))
+                        }
+                    },
+                    onError = {
+                        it.result.throwable.printStackTrace()
+                        imageLoadResult = Result.failure(it.result.throwable)
+                    },
+                )
 
                 when (val result = imageLoadResult) {
                     null -> CircularProgressIndicator()
