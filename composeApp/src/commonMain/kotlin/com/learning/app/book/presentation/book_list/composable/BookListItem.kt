@@ -46,7 +46,7 @@ fun BookListItem(
     onClick: () -> Unit,
     book: Book,
     modifier: Modifier,
-    ) {
+) {
     Surface(
         modifier = Modifier.clickable(onClick = onClick), color = LightBlue.copy(alpha = 0.2f)
     ) {
@@ -93,7 +93,7 @@ fun BookListItem(
             }
             Column(
                 modifier = Modifier.fillMaxHeight().weight(1f),
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center 
             ) {
                 Text(
                     text = book.title,
